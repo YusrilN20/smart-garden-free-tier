@@ -2,7 +2,8 @@
 
 Proyek belajar IoT: **ESP32 membaca suhu & kelembapan dari DHT11**, mengirimnya ke internet,
 lalu ditampilkan di **dashboard web** (angka realtime + grafik) yang dilindungi **login**.
-Semua layanan memakai paket **gratis**.
+Web, database, dan hosting memakai paket **gratis**; hanya broker MQTT yang berbayar
+(lihat tabel di bawah, ada alternatif gratisnya).
 
 > Ini versi sederhana untuk belajar. Sengaja tidak ada kontrol relay, mode otomatis, LoRa,
 > manajemen user, atau export data. Bagian "Tantangan" di bawah adalah bahan riset kamu sendiri.
@@ -15,9 +16,9 @@ DHT11 ──> ESP32 ──(WiFi)──┬── MQTT (tiap 5 dtk) ──> Broker
 Dashboard = HTML + JS statis di Vercel, login memakai Supabase Auth
 ```
 
-| Layanan | Fungsi | Paket gratis |
+| Layanan | Fungsi | Biaya |
 |---|---|---|
-| [Avisha](https://broker.avisha.id) | Broker MQTT (data realtime) | akun gratis |
+| [Avisha](https://broker.avisha.id) | Broker MQTT (data realtime) | **berbayar** — beli paket (mis. 1 tahun), tiap orang dapat username sendiri |
 | [Supabase](https://supabase.com) | Database riwayat + login | 500 MB DB |
 | [GitHub](https://github.com) | Simpan kode | gratis |
 | [Vercel](https://vercel.com) | Hosting dashboard | Hobby |
@@ -42,8 +43,23 @@ web/                    dashboard: index.html, app.js, style.css, config.js
 
 ---
 
-## Langkah 1 — Broker Avisha
-1. Daftar akun di Avisha, catat **username** dan **password** MQTT.
+## Langkah 1 — Broker MQTT
+
+Proyek ini memakai broker **Avisha**. Brokernya **berbayar**: kamu beli paket langganan
+(misalnya 1 tahun), lalu kamu mendapat **username sendiri** beserta password MQTT.
+Jadi username di contoh ini tidak bisa dipakai bersama — tiap orang punya akunnya masing-masing.
+
+Tidak mau berlangganan? Pakai broker gratis, kodenya tidak perlu banyak diubah:
+
+| Pilihan | Catatan |
+|---|---|
+| **HiveMQ Cloud** (gratis, 100 perangkat) | butuh akun; dapat alamat sendiri + username/password. Port ESP32 **8883 (TLS)**, browser `wss://<alamat>:8884/mqtt`. Di firmware ganti `WiFiClient` → `WiFiClientSecure` + `setInsecure()` |
+| **broker.emqx.io / test.mosquitto.org** (publik, tanpa akun) | paling cepat untuk coba-coba, tapi **siapa pun bisa ikut membaca datamu**. Jangan dipakai untuk data sungguhan. Username/password diisi string kosong `''` |
+
+Sisa langkah di bawah memakai Avisha. Kalau kamu pakai broker lain, cukup ganti
+`MQTT_HOST`, `MQTT_PORT`, username/password, dan `mqtt_url` di tabel `app_config`.
+
+1. Setelah paket aktif, catat **username** dan **password** MQTT milikmu.
 2. Topik wajib diawali username kamu, misalnya `namauser/dht/telemetri`. Jadi prefix = `namauser/`.
 3. Port: ESP32 memakai **1883** (TCP), browser memakai **8084** (WebSocket aman, `wss://broker.avisha.id:8084/mqtt`).
 
