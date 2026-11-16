@@ -1,0 +1,5 @@
+firmware/esp32_dht11/secrets.h
+.vercel
+.env*
+node_modules
+.agent/

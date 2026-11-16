@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Garden - DHT11</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="login-view" class="card login" hidden>
+    <h1>Smart Garden</h1>
+    <p class="muted">Masuk untuk melihat suhu &amp; kelembapan.</p>
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <p id="login-error" class="error" role="alert"></p>
+      <button type="submit">Masuk</button>
+    </form>
+  </main>
+
+  <div id="app-view" hidden>
+    <header>
+      <h1>Smart Garden</h1>
+      <span id="device-status" class="badge">Menghubungkan…</span>
+      <button id="logout" class="ghost">Keluar</button>
+    </header>
+    <main>
+      <section class="metrics" aria-live="polite">
+        <div class="card metric">
+          <span class="muted">Suhu</span>
+          <strong><span id="suhu">--</span> °C</strong>
+        </div>
+        <div class="card metric">
+          <span class="muted">Kelembapan</span>
+          <strong><span id="kelembapan">--</span> %</strong>
+        </div>
+      </section>
+      <p id="last-update" class="muted">Belum ada data realtime.</p>
+      <section class="card">
+        <h2>Grafik 24 jam terakhir</h2>
+        <div class="chart-box"><canvas id="chart" aria-label="Grafik suhu dan kelembapan 24 jam"></canvas></div>
+        <p id="chart-info" class="muted"></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mqtt@5/dist/mqtt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

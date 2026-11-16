@@ -1,0 +1,26 @@
+:root { --bg:#f4f6f3; --card:#fff; --text:#1c2a1f; --muted:#5b6b5e; --accent:#2f7d4a; --border:#c9d3cb; --danger:#b42318; }
+* { box-sizing: border-box; }
+[hidden] { display:none !important; }
+body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); }
+h1 { font-size:1.25rem; margin:0; white-space:nowrap; }
+h2 { font-size:1rem; margin:0 0 .75rem; }
+.muted { color:var(--muted); font-size:.9rem; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1rem; }
+.login { width:min(360px, calc(100% - 2rem)); margin:15vh auto; padding:1.5rem; display:grid; gap:.5rem; }
+form { display:grid; gap:.4rem; margin-top:.5rem; }
+input + label { margin-top:.6rem; }
+label { font-weight:600; font-size:.9rem; }
+input { padding:.65rem; border:1px solid #7a877c; border-radius:8px; font:inherit; }
+input:focus-visible, button:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+button { min-height:44px; padding:0 1rem; border:0; border-radius:8px; background:var(--accent); color:#fff; font:inherit; font-weight:600; cursor:pointer; }
+button.ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+.error { color:var(--danger); min-height:1.2em; margin:0; font-size:.9rem; }
+header { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; padding:1rem; max-width:900px; margin:0 auto; }
+header button { margin-left:auto; }
+#app-view main { max-width:900px; margin:0 auto; padding:0 1rem 2rem; display:grid; grid-template-columns:minmax(0,1fr); gap:1rem; }
+.metrics { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(180px,100%),1fr)); gap:1rem; }
+.metric strong { display:block; font-size:2.5rem; margin-top:.25rem; font-variant-numeric:tabular-nums; }
+.badge { font-size:.8rem; padding:.2rem .6rem; border-radius:999px; background:#e8ece9; color:var(--muted); }
+.badge.online { background:#dcf3e3; color:#1b5e33; }
+.badge.offline { background:#fde7e5; color:var(--danger); }
+.chart-box { position:relative; height:260px; }
